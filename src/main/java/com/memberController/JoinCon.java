@@ -18,13 +18,14 @@ public class JoinCon extends HttpServlet {
 		String cls = request.getParameter("cls");
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
+		String email = request.getParameter("email");
 		String name = request.getParameter("name");
 		String birth = request.getParameter("birth");
 		String tel = request.getParameter("tel");
 	
 		memberDAO dao = new memberDAO();
 		
-		int cnt = dao.join(cls, id, pw, name, birth, tel);
+		int cnt = dao.join(cls, id, pw, email, name, birth, tel);
 		
 		if(cnt>0) {
 			response.sendRedirect("Main.jsp");
