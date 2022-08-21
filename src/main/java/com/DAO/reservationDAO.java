@@ -5,12 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.VO.reservationVO;
 
 public class reservationDAO {
 	
 	Connection conn = null;
 	ResultSet rs = null;
 	PreparedStatement psmt = null;
+	ArrayList<reservationVO> list = new ArrayList<reservationVO>();
+	reservationVO rsv_vo = null;
 	int cnt =0;
 	
 	public void connection() {
@@ -89,6 +94,36 @@ public class reservationDAO {
 			close();
 		}
 		return cnt;
+	}
+	
+	public ArrayList<reservationVO> ReservationSelect(String cls){
+		try {
+			connection();
+			
+			String sql = "select from lecture_reservation where rsv_class=?";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cls);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				String rsv_cls = rs.getString(2);
+				String rsv_id = rs.getString(3);
+				String rsv_name = rs.getString(4);
+				String checkout = rs.getString(5);
+				String rsv_date = rs.getString(6);
+				
+				rsv_vo = new reservationVO(rsv_cls, rsv_id, rsv_name, checkout, rsv_date);
+				list.add(rsv_vo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 	
 }

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -34,8 +34,12 @@
 				<% if(vo != null && dao.repetitionCheck(vo.getId())==0) { %>
 					<!-- formaction : form태그에 따로 action을 주지않고 태그에서 데이터를 보낼 주소 설정하는 속성 -->
 					<input type="submit" value="신청" formaction="ReservationCon?cls=Spring_A" onclick="alert('신청 완료')">
-				<% } %>
-				
+				<% } else if(vo == null){ %>  <!-- 로그인 안돼있을 때 -->
+					<input type="submit" value="신청" onclick="alert('로그인하세요')">
+				<% } else{%>  <!-- 중복신청 막음 -->
+					<input type="submit" value="신청" onclick="alert('이미 신청하셨습니다.')">
+				<%} %>
+				<a href="ReservationSelectCon?cls=Spring_A">예약 현황</a>
 			</div>	
 		</form>
 	
