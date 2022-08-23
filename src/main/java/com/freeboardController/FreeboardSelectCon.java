@@ -31,6 +31,9 @@ public class FreeboardSelectCon extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		session.setAttribute("post_list",list);
+		
+		response.sendRedirect("Freeboard.jsp");
 	
 	}
 

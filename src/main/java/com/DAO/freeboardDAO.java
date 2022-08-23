@@ -122,4 +122,26 @@ public class freeboardDAO {
 		}
 	}
 	
+	public int postUpdate(String post_id, String update_title, String update_content) {
+		try {
+			connection();
+			
+			String sql = "update freeboard set title=?,content=?,post_date=sysdate where post_id = ?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1,update_title);
+			psmt.setString(2,update_content);
+			psmt.setString(3,post_id);
+			
+			cnt = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
 }
