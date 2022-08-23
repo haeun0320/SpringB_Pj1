@@ -14,7 +14,7 @@
 <body>
 	<%
 		request.setCharacterEncoding("utf-8");
-		ArrayList<freeboardVO> list = (ArrayList)session.getAttribute("post list");
+		ArrayList<freeboardVO> list = (ArrayList)session.getAttribute("post_list");
 		memberVO vo = (memberVO)session.getAttribute("vo");
 		
 		freeboardDAO dao = new freeboardDAO();
