@@ -86,7 +86,7 @@ public class freeboardDAO {
 			
 			connection();
 			
-			String sql = "insert into freeboard values(post_id.nextval,?,?,?,sysdate,0)";
+			String sql = "insert into freeboard values(freeboard_seq.nextval,?,?,?,sysdate,0)";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, title);
