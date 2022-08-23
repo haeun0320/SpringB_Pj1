@@ -4,7 +4,7 @@
 <%@page import="com.VO.freeboardVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +20,7 @@
 		freeboardDAO dao = new freeboardDAO();
 		commentDAO comment_dao = new commentDAO();
 		
-		int total = dao.postTotal(); // ÃÑ ±Û °³¼ö
+		int total = dao.postTotal(); // ì´ ê¸€ ê°œìˆ˜
 		int pageNumber = 1;
 		
 		if(total%5==0){
@@ -30,14 +30,14 @@
 		}
 		
 	%>
-	<h1>ÀÎ°øÁö´É »ç°üÇÐ±³ °Ô½ÃÆÇ</h1>
+	<h1>ì¸ê³µì§€ëŠ¥ ì‚¬ê´€í•™êµ ê²Œì‹œíŒ</h1>
 	<table>
 		<tr>
-			<th>¹øÈ£</th>
-			<th>Á¦¸ñ</th>
-			<th>ÀÛ¼ºÀÚ</th>
-			<th>ÀÛ¼ºÀÏ</th>
-			<th>Á¶È¸¼ö</th>
+			<th>ë²ˆí˜¸</th>
+			<th>ì œëª©</th>
+			<th>ìž‘ì„±ìž</th>
+			<th>ìž‘ì„±ì¼</th>
+			<th>ì¡°íšŒìˆ˜</th>
 		</tr>
 		<% 
 			for(int i=0; i<list.size(); i++){
@@ -64,9 +64,9 @@
 		}
 	%>
 	<%	if(vo != null){%>
-			<button onclick="location.href='Write.jsp'">±Û¾²±â</button>
+			<button onclick="location.href='Write.jsp'">ê¸€ì“°ê¸°</button>
 	<%	}else{ %>
-			<button onclick="alert('·Î±×ÀÎÇÏ¼¼¿ä')">±Û¾²±â</button>
+			<button onclick="alert('ë¡œê·¸ì¸í•˜ì„¸ìš”')">ê¸€ì“°ê¸°</button>
 	<%	} %>
 	
 </body>

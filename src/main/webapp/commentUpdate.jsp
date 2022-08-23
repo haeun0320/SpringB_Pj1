@@ -1,10 +1,10 @@
 <%@page import="com.VO.memberVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -61,9 +61,9 @@
 			<th><%= title %>></th>
 		</tr>
 		<tr>
-			<td>ÀÛ¼ºÀÚ<%=writer%></td>
-			<td>ÀÛ¼ºÀÏÀÚ<%=post_date%></td>
-			<td>Á¶È¸¼ö<%=views%></td>
+			<td>ìž‘ì„±ìž<%=writer%></td>
+			<td>ìž‘ì„±ì¼ìž<%=post_date%></td>
+			<td>ì¡°íšŒìˆ˜<%=views%></td>
 		</tr>
 		<tr>
 			<td class="content" colspan="3"><%=content%></td>

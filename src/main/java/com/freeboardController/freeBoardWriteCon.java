@@ -1,8 +1,6 @@
 package com.freeboardController;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,27 +9,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.DAO.freeboardDAO;
-import com.VO.freeboardVO;
+import com.VO.memberVO;
 
-@WebServlet("/FreeboardSelectCon")
-public class FreeboardSelectCon extends HttpServlet {
+@WebServlet("/freeBoardWriteCon")
+public class freeBoardWriteCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int viewPage = 1;
+		request.setCharacterEncoding("utf-8");
 		
-		String num = request.getParameter("num");
-		
-		if(num != null) {
-			viewPage = Integer.parseInt(num);
-		}
-		
-		freeboardDAO dao = new freeboardDAO();
-		
-		ArrayList<freeboardVO> list = dao.postSelect(viewPage);
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
 		
 		HttpSession session = request.getSession();
+		memberVO vo = (memberVO)session.getAttribute("vo");
+		freeboardDAO dao = new freeboardDAO();
 		
-	
+		int cnt = dao.write(vo.getId(),title,content);
+		
+		if (cnt > 0) {
+			response.sendRedirect("freeboardSelectCon");
+		} else {
+			System.out.println("작성 실패");
+		}
 	}
 
 }

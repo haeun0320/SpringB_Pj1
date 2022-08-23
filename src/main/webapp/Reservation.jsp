@@ -1,7 +1,7 @@
 <%@page import="com.DAO.reservationDAO"%>
 <%@page import="com.VO.memberVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,15 +13,15 @@
 	memberVO vo = (memberVO) session.getAttribute("vo");
 	reservationDAO dao = new reservationDAO();
 %>
-	<h1>°­ÀÇÀå ¿¬Àå ½ÅÃ»</h1>
-	<button name="button1" onclick="showLecture()">°­ÀÇÀå</button>
-	<button name="button2" onclick="showEtc()">AI Lab ¹× ÈÞ°Ô°ø°£</button><br>
+	<h1>ê°•ì˜ìž¥ ì—°ìž¥ ì‹ ì²­</h1>
+	<button name="button1" onclick="showLecture()">ê°•ì˜ìž¥</button>
+	<button name="button2" onclick="showEtc()">AI Lab ë° íœ´ê²Œê³µê°„</button><br>
 	
 	<div action="Lecture_reservation" style="white-space: nowrap;">
-		<form action="#">		<!-- formaction»ç¿ë À§ÇØ¼­ form ÅÂ±×·Î °¨½Î±â -->
-			<div>	<!-- SpringA¹Ý ¿¹¾à -->
+		<form action="#">		<!-- formactionì‚¬ìš© ìœ„í•´ì„œ form íƒœê·¸ë¡œ ê°ì‹¸ê¸° -->
+			<div>	<!-- SpringAë°˜ ì˜ˆì•½ -->
 				<h2>Spring_A</h2>
-				ÇöÀç ½ÅÃ» ÀÎ¿ø : <%=dao.ReservationCount("Spring_A") %>¸í<br>
+				í˜„ìž¬ ì‹ ì²­ ì¸ì› : <%=dao.ReservationCount("Spring_A") %>ëª…<br>
 				
 				<select name="time">
 					<option value="19:00">19:00</option>
@@ -30,16 +30,16 @@
 					<option value="22:00">22:00</option>
 					<option value="23:00">23:00</option>
 				</select>
-				<!-- ·Î±×ÀÎµÅÀÖ°í ÇØ´ç ¾ÆÀÌµð·Î ¿¹¾àÇÑ ±â·ÏÀÌ ¾ø´Ù¸é -->
+				<!-- ë¡œê·¸ì¸ë¼ìžˆê³  í•´ë‹¹ ì•„ì´ë””ë¡œ ì˜ˆì•½í•œ ê¸°ë¡ì´ ì—†ë‹¤ë©´ -->
 				<% if(vo != null && dao.repetitionCheck(vo.getId())==0) { %>
-					<!-- formaction : formÅÂ±×¿¡ µû·Î actionÀ» ÁÖÁö¾Ê°í ÅÂ±×¿¡¼­ µ¥ÀÌÅÍ¸¦ º¸³¾ ÁÖ¼Ò ¼³Á¤ÇÏ´Â ¼Ó¼º -->
-					<input type="submit" value="½ÅÃ»" formaction="ReservationCon?cls=Spring_A" onclick="alert('½ÅÃ» ¿Ï·á')">
-				<% } else if(vo == null){ %>  <!-- ·Î±×ÀÎ ¾ÈµÅÀÖÀ» ¶§ -->
-					<input type="submit" value="½ÅÃ»" onclick="alert('·Î±×ÀÎÇÏ¼¼¿ä')">
-				<% } else{%>  <!-- Áßº¹½ÅÃ» ¸·À½ -->
-					<input type="submit" value="½ÅÃ»" onclick="alert('ÀÌ¹Ì ½ÅÃ»ÇÏ¼Ì½À´Ï´Ù.')">
+					<!-- formaction : formíƒœê·¸ì— ë”°ë¡œ actionì„ ì£¼ì§€ì•Šê³  íƒœê·¸ì—ì„œ ë°ì´í„°ë¥¼ ë³´ë‚¼ ì£¼ì†Œ ì„¤ì •í•˜ëŠ” ì†ì„± -->
+					<input type="submit" value="ì‹ ì²­" formaction="ReservationCon?cls=Spring_A" onclick="alert('ì‹ ì²­ ì™„ë£Œ')">
+				<% } else if(vo == null){ %>  <!-- ë¡œê·¸ì¸ ì•ˆë¼ìžˆì„ ë•Œ -->
+					<input type="submit" value="ì‹ ì²­" onclick="alert('ë¡œê·¸ì¸í•˜ì„¸ìš”')">
+				<% } else{%>  <!-- ì¤‘ë³µì‹ ì²­ ë§‰ìŒ -->
+					<input type="submit" value="ì‹ ì²­" onclick="alert('ì´ë¯¸ ì‹ ì²­í•˜ì…¨ìŠµë‹ˆë‹¤.')">
 				<%} %>
-				<a href="ReservationSelectCon?cls=Spring_A">¿¹¾à ÇöÈ²</a>
+				<a href="ReservationSelectCon?cls=Spring_A">ì˜ˆì•½ í˜„í™©</a>
 			</div>	
 		</form>
 	

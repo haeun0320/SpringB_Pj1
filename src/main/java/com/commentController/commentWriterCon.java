@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.DAO.commentDAO;
 import com.VO.memberVO;
 
 @WebServlet("/commentWriterCon")
@@ -20,7 +21,18 @@ public class commentWriterCon extends HttpServlet {
 		
 		memberVO vo = (memberVO)session.getAttribute("vo");
 		
+		String comment_content = request.getParameter("comment_content");
+		String post_id = request.getParameter("post_id");
 		
+		String title = request.getParameter("title");
+		String writer = request.getParameter("writer");
+		String content = request.getParameter("content");
+		String post_date = request.getParameter("post_date");
+		int views = Integer.parseInt(request.getParameter("views"));
+		
+		commentDAO dao = new commentDAO();
+		
+//		int cnt = dao.commentWriter(post_id, comment_content, vo.getId());
 	
 	}
 

@@ -1,26 +1,26 @@
 <%@page import="com.VO.memberVO"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<% memberVO vo = (memberVO)session.getAttribute("vo"); %>
-	<h1>±¤ÁÖ ÀÎ°øÁö´É »ç°üÇÐ±³</h1>
+	<h1>ê´‘ì£¼ ì¸ê³µì§€ëŠ¥ ì‚¬ê´€í•™êµ</h1>
 	<% if(vo==null) {%>
-		<a href="Login.html">·Î±×ÀÎ</a>
-		<a href="Join.html">È¸¿ø°¡ÀÔ</a>
+		<a href="Login.html">ë¡œê·¸ì¸</a>
+		<a href="Join.html">íšŒì›ê°€ìž…</a>
 	<%}else{ %>
 		<%= vo.getName() %><br>
-		<a href="LogOutCon">·Î±×¾Æ¿ô</a>
+		<a href="LogOutCon">ë¡œê·¸ì•„ì›ƒ</a>
 	<%} %>
-	<a>°­ÀÇÀå ¿¬Àå ½ÅÃ»</a>
-	<a>º¸Ãæ¼ö¾÷</a>
-	<a href="FreeboardSelectCon">ÀÚÀ¯°Ô½ÃÆÇ</a>
+	<a>ê°•ì˜ìž¥ ì—°ìž¥ ì‹ ì²­</a>
+	<a>ë³´ì¶©ìˆ˜ì—…</a>
+	<a href="FreeboardSelectCon">ìžìœ ê²Œì‹œíŒ</a>
 </body>
 </html>
 
-<!-- È¸¿ø°¡ÀÔ -> ·Î±×ÀÎ -> ·Î±×¾Æ¿ô -> ¿¹¾à ½ÅÃ» -> ¿¹¾à Á¶È¸ -> ¿¹¾à ¼öÁ¤ -> ¿¹¾à »èÁ¦ -->
+<!-- íšŒì›ê°€ìž… -> ë¡œê·¸ì¸ -> ë¡œê·¸ì•„ì›ƒ -> ì˜ˆì•½ ì‹ ì²­ -> ì˜ˆì•½ ì¡°íšŒ -> ì˜ˆì•½ ìˆ˜ì • -> ì˜ˆì•½ ì‚­ì œ -->
