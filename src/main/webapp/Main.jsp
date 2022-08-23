@@ -19,7 +19,7 @@
 	<%} %>
 	<a>강의장 연장 신청</a>
 	<a>보충수업</a>
-	<a href="Freeboard.html">자유게시판</a>
+	<a href="FreeboardSelectCon">자유게시판</a>
 </body>
 </html>
 
