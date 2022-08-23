@@ -103,4 +103,23 @@ public class freeboardDAO {
 		return cnt;
 	}
 	
+	public void viewsUpdate(int views, String post_id) {
+		try {
+			connection();
+			
+			String sql = "update freeboard set view=? where post_id=?";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, views);
+			psmt.setString(2, post_id);
+			
+			cnt = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+	}
+	
 }

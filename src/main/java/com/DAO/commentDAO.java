@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.VO.commentVO;
@@ -73,9 +74,51 @@ public class commentDAO {
 	}
 	
 	public int commentWriter(String post_id, String content, String comment_writer) {
+		try {
+		connection();
 		
+		String sql = "insert into comments values(comments_seq.nextval,?,?,?,sysdate)";
 		
-		
+		psmt = conn.prepareStatement(sql);
+			psmt.setString(1, post_id);
+			psmt.setString(2, content);
+			psmt.setString(3, comment_writer);
+			
+			cnt = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return cnt;
+	}
+	
+	public ArrayList<commentVO> commentSelect(String post_id2){
+		try {
+			connection();
+			
+			String sql = "select * from comments where post_id=? order by comment_date desc";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, post_id2);
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				String comment_id = rs.getString(1);
+				String post_id = rs.getString(2);
+				String content = rs.getString(3);
+				String comment_writer = rs.getString(4);
+				String comment_date = rs.getString(5);
+				
+				comment_vo = new commentVO(comment_id, post_id, content, comment_writer, comment_date);
+				list.add(comment_vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return list;
 	}
 }

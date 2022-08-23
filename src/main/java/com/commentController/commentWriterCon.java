@@ -1,6 +1,8 @@
 package com.commentController;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +34,21 @@ public class commentWriterCon extends HttpServlet {
 		
 		commentDAO dao = new commentDAO();
 		
-//		int cnt = dao.commentWriter(post_id, comment_content, vo.getId());
+		int cnt = dao.commentWriter(post_id, comment_content, vo.getId());
+		
+		if(cnt>0) {
+			request.setAttribute("title", title);
+			request.setAttribute("writer", writer);
+			request.setAttribute("content", content);
+			request.setAttribute("post_date", post_date);
+			request.setAttribute("post_id", post_id);
+			request.setAttribute("views", views);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("View.jsp");
+			rd.forward(request, response);
+		} else {
+			System.out.println("등록실패");
+		}
 	
 	}
 
