@@ -22,8 +22,8 @@
 			<tr>
 				<td>작성자<%=writer%></td>
 				<td>작성일자<%=post_date%></td>
-				<td>조회수 0</td>
-				<td>추천수 0</td>
+				<td>조회수 </td>
+				<td>추천수 </td>
 			</tr>
 			<tr>
 				<td colspan="4"><textarea class="content" name="update_content"><%=content%></textarea></td>

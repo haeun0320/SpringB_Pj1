@@ -16,6 +16,15 @@
 			<tr>
 				<td><textarea placeholder="내용" name="content"></textarea></td>
 			</tr>
+			<tr>
+				<td>
+					<select name="board_t">
+						<option value="1">공지사항</option>
+						<option value="2">자유게시판</option>
+						<option></option>
+					</select>
+				</td>
+			</tr>
 		</table>
 		<input type="submit" value="작성">
 	</form>

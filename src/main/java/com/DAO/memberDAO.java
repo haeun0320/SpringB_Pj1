@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.VO.memberVO;
 
@@ -15,6 +16,7 @@ public class memberDAO {
 	ResultSet rs = null;
 	memberVO vo = null;
 	int cnt = 0;
+	ArrayList<memberVO> list = new ArrayList<memberVO>();
 	
 	public void getConn() {
 		try {
@@ -47,11 +49,11 @@ public class memberDAO {
 		}
 	}
 	
-	public int join(String cls, String id, String pw, String email, String name, String birth, String tel) {
+	public int join(String cls, String id, String pw, String email, String name, String birth, String tel,char m_type) {
 		
 		try {
 			getConn();  //db연결
-			String sql = "INSERT INTO SCHOOL_MEMBER VALUES(?,?,?,?,?,?,?,SYSDATE)"; //sql 준비
+			String sql = "INSERT INTO SCHOOL_MEMBER VALUES(?,?,?,?,?,?,?,SYSDATE.?)"; 
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cls);
 			psmt.setString(2, id);
@@ -60,6 +62,7 @@ public class memberDAO {
 			psmt.setString(5, name);
 			psmt.setString(6, birth);
 			psmt.setString(7, tel);
+			psmt.setString(8, String.valueOf(m_type));
 			
 			cnt = psmt.executeUpdate();   //sql 실행(실패하면 cnt=0)
 			
@@ -68,7 +71,6 @@ public class memberDAO {
 		} finally {
 			close();
 		}
-		
 		return cnt;    // 성공 실패 여부 리턴
 	}
 	
@@ -92,7 +94,6 @@ public class memberDAO {
 			}else {
 				System.out.println("로그인 실패");
 			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

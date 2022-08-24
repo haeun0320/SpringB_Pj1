@@ -22,10 +22,11 @@ public class JoinCon extends HttpServlet {
 		String name = request.getParameter("name");
 		String birth = request.getParameter("birth");
 		String tel = request.getParameter("tel");
+		char m_type = request.getParameter("m_type").charAt(0); 
 	
 		memberDAO dao = new memberDAO();
 		
-		int cnt = dao.join(cls, id, pw, email, name, birth, tel);
+		int cnt = dao.join(cls, id, pw, email, name, birth, tel, m_type);
 		
 		if(cnt>0) {
 			response.sendRedirect("Main.jsp");

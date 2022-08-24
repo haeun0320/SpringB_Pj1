@@ -19,12 +19,13 @@ public class freeBoardWriteCon extends HttpServlet {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		int board_type = Integer.parseInt(request.getParameter("board_t"));
 		
 		HttpSession session = request.getSession();
 		memberVO vo = (memberVO)session.getAttribute("vo");
 		freeboardDAO dao = new freeboardDAO();
 		
-		int cnt = dao.write(vo.getId(),title,content);
+		int cnt = dao.write(vo.getId(),title,content,board_type);
 		
 		if (cnt > 0) {
 			response.sendRedirect("freeboardSelectCon");

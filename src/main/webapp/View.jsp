@@ -10,6 +10,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	table {border:1px solid black; height:300px; width:400px;}
+	.content {height:300px; font-size:200%;}
+	td {border:1px solid black;}
+	.comment_area {height:60px;}
+	.comment_write {height:60px;}
+	.comment_flex {display:flex; height:60px;}
+	textarea {width:310px;}
+</style>
 </head>
 <body>
 	<%
@@ -102,6 +111,7 @@
 					<%if(vo.getId().equals(list.get(i).getComment_writer())){ %>  <!-- 로그인된 아이디와 댓글 작성자의 아이디가 같으면 수정, 삭제 권한 -->
 						<button onclick="location.href='commentUpdate.jsp?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>'">수정</button>
 						<button onclick="location.href='commentDeleteCon?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>'">삭제</button>
+						<button onclick="location.href='view.jsp'">목록으로</button>
 					<%} %>
 				</td>
 			</tr>

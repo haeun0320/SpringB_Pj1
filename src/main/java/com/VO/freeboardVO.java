@@ -8,8 +8,9 @@ public class freeboardVO {
 	private String content;
 	private String post_date;
 	private int views;
+	private int board_type;
 	
-	public freeboardVO(String post_id, String title, String writer, String content, String post_date, int views) {
+	public freeboardVO(String post_id, String title, String writer, String content, String post_date, int views, int board_type) {
 		super();
 		this.post_id = post_id;
 		this.title = title;
@@ -17,6 +18,7 @@ public class freeboardVO {
 		this.content = content;
 		this.post_date = post_date;
 		this.views = views;
+		this.board_type = board_type;
 	}
 	
 	public String getPost_id() {
@@ -55,4 +57,10 @@ public class freeboardVO {
 	public void setViews(int views) {
 		this.views = views;
 	}	
+	public int board_type() {
+		return board_type;
+	}
+	public void setBoard_type(int board_type) {
+		this.board_type = board_type;
+	}
 }

@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.DAO.commentDAO;
 
-@WebServlet("/commentDeleteCon")
-public class commentDeleteCon extends HttpServlet {
+@WebServlet("/commentUpdateCon")
+public class commentUpdateCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String comment_id = request.getParameter("comment_id");
+		request.setCharacterEncoding("utf-8");
+		
+		String update_content = request.getParameter("update_content");
+		String comment_id = request.getParameter("comment_id");	
 		
 		String post_id = request.getParameter("post_id");		
 		String title = request.getParameter("title");
@@ -26,7 +29,10 @@ public class commentDeleteCon extends HttpServlet {
 		
 		commentDAO dao = new commentDAO();
 		
-		int cnt = dao.commentDelete(comment_id);
+		int cnt = dao.commentUpdate(comment_id, update_content);
+		
+		System.out.println(comment_id);
+		System.out.println(update_content);
 		
 		if (cnt > 0) {
 			request.setAttribute("title", title);

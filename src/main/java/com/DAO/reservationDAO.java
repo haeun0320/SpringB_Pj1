@@ -54,7 +54,7 @@ public class reservationDAO {
 			cnt=0;
 			connection();
 		
-			String sql = "SELECT * FROM LECTURE_RESERVATION WHERE RSV_CLASS=?";
+			String sql = "select * from lecture_reservation where rsv_class=? and rsv_date >=trunc(sysdate) and rsv_date < trunc(sysdate)+1";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cls);
@@ -77,7 +77,7 @@ public class reservationDAO {
 			cnt=0;
 			connection();
 			
-			String sql = "SELECT FROM LECTURE_RESERVATION WHERE RSV_ID=?";
+			String sql = "select * from lecture_reservation where rsv_id=? and rsv_date >=trunc(sysdate) and rsv_date < trunc(sysdate)+1";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
@@ -100,7 +100,7 @@ public class reservationDAO {
 		try {
 			connection();
 			
-			String sql = "select from lecture_reservation where rsv_class=?";
+			String sql = "select * from lecture_reservation where rsv_class=? and rsv_date >=trunc(sysdate) and rsv_date < trunc(sysdate)+1";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cls);

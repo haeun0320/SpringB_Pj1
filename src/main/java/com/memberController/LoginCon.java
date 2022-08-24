@@ -17,8 +17,8 @@ public class LoginCon extends HttpServlet {
 
 		request.setCharacterEncoding("utf-8");
 		
-		String id = request.getParameter("input_id");
-		String pw = request.getParameter("input_pw");
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
 		
 		memberDAO dao = new memberDAO();
 		memberVO vo = dao.Login(id,pw);

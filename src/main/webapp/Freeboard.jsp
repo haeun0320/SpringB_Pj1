@@ -31,7 +31,7 @@
 		
 	%>
 	<h1>인공지능 사관학교 게시판</h1>
-	<table>
+	<table border="1">
 		<tr>
 			<th>번호</th>
 			<th>제목</th>
@@ -46,27 +46,27 @@
 			String writer = list.get(i).getWriter();
 			String content = list.get(i).getContent();
 			String post_date = list.get(i).getPost_date();
+			int views = list.get(i).getViews();
 		%>
 			<tr>
 				<td><%= list.get(i).getPost_id()%></td>		
-				<td><a href="View.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>"><%=list.get(i).getTitle()%></a>[<%=comment_dao.commentNum(post_id)%>]</td>		
+				<td><a href="View.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>"><%=list.get(i).getTitle()%></a>[<%=comment_dao.commentNum(post_id)%>]</td>		
 				<td><%= list.get(i).getWriter()%></td>		
 				<td><%= list.get(i).getPost_date()%></td>		
 				<td><%= list.get(i).getViews()%></td>		
 			</tr>
 		<%  }%>
-	</table>
-	
+	</table><br>
 	<%
 		for(int i=1; i<=pageNumber; i++){
 			out.print("<a href='freeboardSelectCon?num="+i+"'>"+i+"</a>");
 		}
 	%>
-	<%	if(vo != null){%>
+	<!-- 	if(vo != null){ -->
 			<button onclick="location.href='Write.jsp'">글쓰기</button>
-	<%	}else{ %>
+ 	<!-- 	}else{  
 			<button onclick="alert('로그인하세요')">글쓰기</button>
-	<%	} %>
+		}  -->
 	
 </body>
 </html>

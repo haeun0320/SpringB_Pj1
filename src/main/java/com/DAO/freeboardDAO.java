@@ -54,7 +54,6 @@ public class freeboardDAO {
 		int total=0;
 		
 		try {
-			
 			connection();
 			
 			String sql = "select * from freeboard";
@@ -73,25 +72,75 @@ public class freeboardDAO {
 		return total;
 	}
 	
+	public int lastPostId() {
+		int lastPostID = 0;
+		try {
+			connection();
+			
+			String sql = "select * from freeboard order by post_id desc";
+			
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				lastPostID = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  finally {
+			close();
+		}
+		return lastPostID;
+	}
+	
 	public ArrayList<freeboardVO> postSelect(int viewPage){
 		
-		String sql = "select * from freeboard where post_id between ? and ? order by post_id desc";
+		int postRange = lastPostId()-(viewPage-1)*5;
 		
-		list.add(freeboard_vo);
+		try {
+			connection();
+			
+			String sql = "select * from freeboard where post_id between ? and ? order by post_id desc";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1,postRange-4);
+			psmt.setInt(2,postRange);
+			
+			rs = psmt.executeQuery();
+
+			while (rs.next()) {
+				String post_id = rs.getString(1);
+				String title = rs.getString(2);
+				String writer = rs.getString(3);
+				String content = rs.getString(4);
+				String post_date = rs.getString(5);
+				int views = rs.getInt(6);
+				int board_type = rs.getInt(7);
+				
+				freeboard_vo = new freeboardVO(post_id,title,writer,content,post_date,views,board_type);
+				list.add(freeboard_vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  finally {
+			close();
+		}
 		return list;
 	}
 	
-	public int write(String id, String title, String content) {
+	public int write(String id, String title, String content, int board_type) {
 		try {
 			
 			connection();
 			
-			String sql = "insert into freeboard values(freeboard_seq.nextval,?,?,?,sysdate,0)";
+			String sql = "insert into freeboard values(freeboard_seq.nextval,?,?,?,sysdate,?)";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, title);
 			psmt.setString(2, id);
 			psmt.setString(3, content);
+			psmt.setInt(4, board_type);
 			
 			cnt = psmt.executeUpdate();
 			
@@ -133,6 +182,26 @@ public class freeboardDAO {
 			psmt.setString(1,update_title);
 			psmt.setString(2,update_content);
 			psmt.setString(3,post_id);
+			
+			cnt = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+	
+	public int postDelete(String post_id) {	
+		try {
+			connection();
+			
+			String sql = "delete freeboard where post_id = ?";
+			
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setString(1,post_id);
 			
 			cnt = psmt.executeUpdate();
 			

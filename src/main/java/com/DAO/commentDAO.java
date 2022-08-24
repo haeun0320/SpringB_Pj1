@@ -121,4 +121,44 @@ public class commentDAO {
 		}
 		return list;
 	}
+
+	public int commentUpdate(String comment_id, String update_content) {
+		try {
+			connection();
+			
+			String sql = "update comments set content=? where comment_id=?";
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, update_content);
+			psmt.setString(2, comment_id);
+			
+			cnt = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
+
+	public int commentDelete(String comment_id) {
+		try {
+			connection();
+			
+			String sql = "delete comments where comment_id=?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1,comment_id);
+			
+			cnt = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return cnt;
+	}
 }
