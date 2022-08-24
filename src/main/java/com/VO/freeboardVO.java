@@ -57,7 +57,7 @@ public class freeboardVO {
 	public void setViews(int views) {
 		this.views = views;
 	}	
-	public int board_type() {
+	public int getBoard_type() {
 		return board_type;
 	}
 	public void setBoard_type(int board_type) {

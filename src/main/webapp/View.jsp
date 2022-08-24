@@ -67,6 +67,12 @@
 			views = Integer.parseInt(request.getParameter("views"));
 		}
 		
+		if (request.getParameter("board_type") == null) {
+			views = (int)request.getAttribute("board_type");
+		} else {
+			views = Integer.parseInt(request.getParameter("board_type"));
+		}
+		
 		freeboardDAO freeboard_dao = new freeboardDAO();
 		
 		freeboard_dao.viewsUpdate(views+1, post_id);
