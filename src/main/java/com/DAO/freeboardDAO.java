@@ -94,14 +94,14 @@ public class freeboardDAO {
 		return lastPostID;
 	}
 	
-	public ArrayList<freeboardVO> postSelect(int viewPage, int board_type){
+	public ArrayList<freeboardVO> postSelect(int viewPage){
 		
 		int postRange = lastPostId()-(viewPage-1)*5;
 		
 		try {
 			connection();
 			
-			String sql = "select * from freeboard where post_id between ? and ? order by post_id desc ";
+			String sql = "select * from freeboard where post_id between ? and ? order by post_id desc";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1,postRange-4);
@@ -116,7 +116,7 @@ public class freeboardDAO {
 				String content = rs.getString(4);
 				String post_date = rs.getString(5);
 				int views = rs.getInt(6);
-				board_type = rs.getInt(7);
+				int board_type = rs.getInt(7);
 				
 				freeboard_vo = new freeboardVO(post_id,title,writer,content,post_date,views,board_type);
 				list.add(freeboard_vo);
@@ -156,7 +156,7 @@ public class freeboardDAO {
 		try {
 			connection();
 			
-			String sql = "update freeboard set view=? where post_id=?";
+			String sql = "update freeboard set views=? where post_id=?";
 			
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, views);

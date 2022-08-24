@@ -20,7 +20,6 @@ public class FreeboardSelectCon extends HttpServlet {
 		int viewPage = 1;
 		
 		String num = request.getParameter("num");
-		int board_type = Integer.parseInt(request.getParameter("board_t"));
 		
 		if(num != null) {
 			viewPage = Integer.parseInt(num);
@@ -28,7 +27,7 @@ public class FreeboardSelectCon extends HttpServlet {
 		
 		freeboardDAO dao = new freeboardDAO();
 		
-		ArrayList<freeboardVO> list = dao.postSelect(viewPage, board_type);
+		ArrayList<freeboardVO> list = dao.postSelect(viewPage);
 		
 		HttpSession session = request.getSession();
 		
