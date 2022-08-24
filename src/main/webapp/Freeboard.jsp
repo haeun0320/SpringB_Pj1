@@ -31,6 +31,16 @@
 		
 	%>
 	<h1>인공지능 사관학교 게시판</h1>
+	<button id="board_notice" onclick="showNotice()">공지사항</button>
+	<button id="board_free" onclick="showFreeboard()">자유게시판</button>
+	<script>
+		function showNotice(){
+			var board_select=1;
+		}
+		function showFreeboard(){
+			var board_select=2;
+		}
+	</script>
 	<table border="1">
 		<tr>
 			<th>번호</th>
@@ -47,10 +57,11 @@
 			String content = list.get(i).getContent();
 			String post_date = list.get(i).getPost_date();
 			int views = list.get(i).getViews();
+			int board_type = list.get(i).getBoard_type();
 		%>
 			<tr>
 				<td><%= list.get(i).getPost_id()%></td>		
-				<td><a href="View.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>"><%=list.get(i).getTitle()%></a>[<%=comment_dao.commentNum(post_id)%>]</td>		
+				<td><a href="View.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=<%=board_type%>"><%=list.get(i).getTitle()%></a>[<%=comment_dao.commentNum(post_id)%>]</td>		
 				<td><%= list.get(i).getWriter()%></td>		
 				<td><%= list.get(i).getPost_date()%></td>		
 				<td><%= list.get(i).getViews()%></td>		
