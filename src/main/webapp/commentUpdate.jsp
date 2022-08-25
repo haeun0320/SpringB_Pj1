@@ -2,7 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.DAO.commentDAO"%>
 <%@page import="com.VO.memberVO"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,70 +20,73 @@
 </style>
 </head>
 <body>
-<%
-	memberVO vo = (memberVO)session.getAttribute("vo");
+	<%		
+		memberVO vo = (memberVO)session.getAttribute("vo");
+ 
+		String post_id;
+		String title;
+		String writer;
+		String content;
+		String post_date;
+		int views;
+		
+		String comment_id = request.getParameter("comment_id");
 
-	String post_id;
-	String title;
-	String writer;
-	String content;
-	String post_date;
-	int views;
-	
-	String comment_id = request.getParameter("comment_id");
-	
-	if(request.getParameter("post_id")==null){
-		post_id = (String)request.getAttribute("post_id");
-	}else{
-		post_id = request.getParameter("post_id");
-	}
-	
-	if(request.getParameter("title")==null){
-		title = (String)request.getAttribute("title");
-	}else{
-		title = request.getParameter("title");
-	}
-	
-	if(request.getParameter("writer")==null){
-		writer = (String)request.getAttribute("writer");
-	}else{
-		writer = request.getParameter("writer");
-	}
-	
-	if(request.getParameter("content")==null){
-		content = (String)request.getAttribute("content");
-	}else{
-		content = request.getParameter("content");
-	}
-	
-	if(request.getParameter("post_date")==null){
-		post_date = (String)request.getAttribute("post_date");
-	}else{
-		post_date = request.getParameter("post_date");
-	}
-	
-	if(request.getParameter("views")==null){
-		views = (int)request.getAttribute("views");
-	}else{
-		views = Integer.parseInt(request.getParameter("views"));
-	}
-	commentDAO dao = new commentDAO();
+		if (request.getParameter("post_id") == null) {
+			post_id = (String)request.getAttribute("post_id");
+		} else {
+			post_id = request.getParameter("post_id");
+		}
+		
+		if (request.getParameter("title") == null) {
+			title = (String)request.getAttribute("title");
+		} else {
+			title = request.getParameter("title");
+		}
+		
+		if (request.getParameter("writer") == null) {
+			writer = (String)request.getAttribute("writer");
+		} else {
+			writer = request.getParameter("writer");
+		}
+		
+		if (request.getParameter("content") == null) {
+			content = (String)request.getAttribute("content");
+		} else {
+			content = request.getParameter("content");
+		}
+		
+		if (request.getParameter("post_date") == null) {
+			post_date = (String)request.getAttribute("post_date");
+		} else {
+			post_date = request.getParameter("post_date");
+		}
+		
+		if (request.getParameter("views") == null) {
+			views = (int)request.getAttribute("views");
+		} else {
+			views = Integer.parseInt(request.getParameter("views"));
+		}
+		
+		commentDAO dao = new commentDAO();
 
-	ArrayList<commentVO> list = dao.commentSelect(post_id);
-%>
+		ArrayList<commentVO> list = dao.commentSelect(post_id);
+	%>
+	
 	<table>
 		<tr>
-			<th><%= title %>></th>
+			<th><%=title%><th>
 		</tr>
 		<tr>
-			<td>작성자<%=writer%></td>
-			<td>작성일자<%=post_date%></td>
-			<td>조회수<%=views%></td>
+			<td>작성자<%=writer %></td>
+			<td>작성일자<%=post_date %></td>
+			<td>조회수 <%=views %></td>
 		</tr>
 		<tr>
-			<td class="content" colspan="3"><%=content%></td>
+			<td class="content" colspan="4"><%=content %></td>
 		</tr>
 	</table>
+	
 	<form action="commentWriteCon?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>" method="post">
 		<table class="comment_write">
 			<tr>
@@ -97,7 +100,8 @@
 				</td>
 			</tr>
 		</table>
-	</form>
+	</form>	
+	
 	<% for(int i=0; i<list.size(); i++) { %>
 		<table class="comment_area">
 			<tr>
@@ -121,5 +125,6 @@
 			</tr>
 		</table>
 	<% } %>
+
 </body>
 </html>

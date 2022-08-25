@@ -14,7 +14,7 @@ import com.DAO.commentDAO;
 @WebServlet("/commentDeleteCon")
 public class commentDeleteCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String comment_id = request.getParameter("comment_id");
 		
 		String post_id = request.getParameter("post_id");		
@@ -41,7 +41,5 @@ public class commentDeleteCon extends HttpServlet {
 		} else {
 			System.out.println("삭제 실패");
 		}
-	
 	}
-
 }

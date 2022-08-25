@@ -12,7 +12,7 @@ import com.DAO.freeboardDAO;
 @WebServlet("/postDeleteCon")
 public class postDeleteCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		String post_id = request.getParameter("post_id");
 		
 		freeboardDAO dao = new freeboardDAO();
@@ -24,7 +24,5 @@ public class postDeleteCon extends HttpServlet {
 		} else {
 			System.out.println("삭제 실패");
 		}
-	
 	}
-
 }

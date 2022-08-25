@@ -1,5 +1,6 @@
 package com.VO;
 
+// 댓글의 정보를 담을 클래스
 public class commentVO {
 	
 	private String comment_id;
@@ -47,4 +48,6 @@ public class commentVO {
 	public void setComment_date(String comment_date) {
 		this.comment_date = comment_date;
 	}
+	
+	
 }

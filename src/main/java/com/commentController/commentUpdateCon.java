@@ -14,7 +14,7 @@ import com.DAO.commentDAO;
 @WebServlet("/commentUpdateCon")
 public class commentUpdateCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.setCharacterEncoding("utf-8");
 		
 		String update_content = request.getParameter("update_content");
@@ -29,7 +29,7 @@ public class commentUpdateCon extends HttpServlet {
 		
 		commentDAO dao = new commentDAO();
 		
-		int cnt = dao.commentUpdate(comment_id, update_content);
+		int cnt = dao.commentUpdate(comment_id,update_content);
 		
 		System.out.println(comment_id);
 		System.out.println(update_content);
@@ -46,8 +46,7 @@ public class commentUpdateCon extends HttpServlet {
 			rd.forward(request, response);
 		} else {
 			System.out.println("삭제 실패");
-		}
-	
+		}		
+		
 	}
-
 }

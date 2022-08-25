@@ -14,12 +14,12 @@ import com.VO.memberVO;
 @WebServlet("/freeBoardWriteCon")
 public class freeBoardWriteCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.setCharacterEncoding("utf-8");
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		int board_type = Integer.parseInt(request.getParameter("board_t"));
+		int board_type = Integer.parseInt(request.getParameter("board_type"));
 		
 		HttpSession session = request.getSession();
 		memberVO vo = (memberVO)session.getAttribute("vo");
@@ -33,5 +33,4 @@ public class freeBoardWriteCon extends HttpServlet {
 			System.out.println("작성 실패");
 		}
 	}
-
 }
