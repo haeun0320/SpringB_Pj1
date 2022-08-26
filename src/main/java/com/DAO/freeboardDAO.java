@@ -178,15 +178,13 @@ public int postTotal_1() {
 		// 총 게시글의 12개라 가정했을때 viewPage가 1이면 postRange는 12
 		// viewPage가 2이면 postRange는 7
 		int postRange = postTotal_1()-(viewPage-1)*5;
-		
 		try {
 			connection();
 			
 			// 늦게 작성한 글, 즉 post_id가 큰 글이 게시판 위에 보여져야하므로 post_id를 내림차순으로 정령
-			String sql = "SELECT * FROM (SELECT ROWNUM AS NUM, freeboard.* FROM freeboard WHERE board_type=1 ) where NUM BETWEEN ? AND ?;";
+			String sql = "SELECT * FROM (SELECT rownum as num ,freeboard. * FROM freeboard WHERE board_type=1 ) where num BETWEEN ? AND ?";
 			
 			psmt = conn.prepareStatement(sql);
-			
 			// 5개 기준이기 때문에 postRange가 12라면
 			// 8,9,10,11,12번 글이 리스트에 담긴다 
 			psmt.setInt(1,postRange-4);
@@ -216,11 +214,10 @@ public int postTotal_1() {
 	public ArrayList<freeboardVO> postSelect_2(int viewPage) {
 		
 		int postRange = postTotal_2()-(viewPage-1)*5;
-		
 		try {
 			connection();
 			
-			String sql = "SELECT * FROM (SELECT ROWNUM AS NUM, freeboard.* FROM freeboard WHERE board_type=2 ) where NUM BETWEEN ? AND ?;";
+			String sql = "SELECT * FROM (SELECT rownum as num ,freeboard. * FROM freeboard WHERE board_type=1 ) where num BETWEEN ? AND ?";
 			
 			psmt = conn.prepareStatement(sql);
 			

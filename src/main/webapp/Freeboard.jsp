@@ -41,6 +41,9 @@
 			pageNumber_2 = (total_2 / 5) + 1;
 		}
 	%>
+	
+	<%= list1.size() %>
+	<%= list2.size() %>
 	<h1>인공지능 사관학교 게시판</h1>
 	<button id="board_notice" onclick="showNotice()">공지사항</button>
 	<button id="board_free" onclick="showFreeboard()">자유게시판</button>
@@ -81,7 +84,7 @@
 	</table>
 		<%
 		for (int i = 1; i <= pageNumber_1; i++) {
-			out.print("<a href='freeboardSelectCon?num=" + i + "'>" + i + "</a>");
+			out.print("<a href='freeboardSelectCon?num_1=" + i + "'>" + i + "</a>");
 		}
 		%>
 	</div>
@@ -117,7 +120,7 @@
 	</table>
 		<%
 		for (int i = 1; i <= pageNumber_2; i++) {
-			out.print("<a href='freeboardSelectCon?num=" + i + "'>" + i + "</a>");
+			out.print("<a href='freeboardSelectCon?num_2=" + i + "'>" + i + "</a>");
 		}
 		%>
 	</div>

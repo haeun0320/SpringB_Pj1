@@ -19,20 +19,24 @@ public class freeboardSelectCon extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// num이 null인 경우 기본값은 1페이지
-		int viewPage = 1;
-		String num = request.getParameter("num");
+		int viewPage_1 = 1;
+		int viewPage_2 = 1;
+		String num_1 = request.getParameter("num_1");
+		String num_2 = request.getParameter("num_2");
 		
 		
-		if (num != null) {
-			viewPage = Integer.parseInt(num);
+		if (num_1 != null) {
+			viewPage_1 = Integer.parseInt(num_1);
+		}
+		if (num_2 != null) {
+			viewPage_2 = Integer.parseInt(num_2);
 		}
 		
 		freeboardDAO dao = new freeboardDAO();
 	
-		
 		// viewPage에 맞는 글들의 정보를 리턴받는다.
-		ArrayList<freeboardVO> list1 = dao.postSelect_1(viewPage);
-		ArrayList<freeboardVO> list2 = dao.postSelect_2(viewPage);
+		ArrayList<freeboardVO> list1 = dao.postSelect_1(viewPage_1);
+		ArrayList<freeboardVO> list2 = dao.postSelect_2(viewPage_2);
 		
 		HttpSession session = request.getSession();
 		
