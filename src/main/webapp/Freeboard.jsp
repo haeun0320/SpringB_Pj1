@@ -41,9 +41,6 @@
 			pageNumber_2 = (total_2 / 5) + 1;
 		}
 	%>
-	
-	<%= list1.size() %>
-	<%= list2.size() %>
 	<h1>인공지능 사관학교 게시판</h1>
 	<button id="board_notice" onclick="showNotice()">공지사항</button>
 	<button id="board_free" onclick="showFreeboard()">자유게시판</button>
@@ -57,7 +54,6 @@
 			<th>작성일</th>
 			<th>조회수</th>
 		</tr>
-		
 		<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
 		<% int n=1; %>
 		<% for (int i=0; i<list1.size(); i++) { %>
@@ -67,9 +63,6 @@
 		<% String content = list1.get(i).getContent(); %>
 		<% String post_date = list1.get(i).getPost_date(); %>
 		<% int views = list1.get(i).getViews(); %>
-		
-		
-			
 			<tr>
 				<td><%= n++ %></td>
 				<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
@@ -106,7 +99,6 @@
 		<% String content = list2.get(i).getContent(); %>
 		<% String post_date = list2.get(i).getPost_date(); %>
 		<% int views = list2.get(i).getViews(); %>
-	
 			<tr>
 				<td><%=n_1++%></td>
 				<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
@@ -115,7 +107,6 @@
 				<td><%= list2.get(i).getPost_date().substring(0,10) %></td>
 				<td><%= list2.get(i).getViews() %></td>			
 			</tr>
-			
 		<% } %>
 	</table>
 		<%
