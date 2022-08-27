@@ -56,7 +56,7 @@ public class commentDAO {
 		try {
 			connection();
 			
-			String sql = "insert into comments values(comment_id.nextval,?,?,?,sysdate)";
+			String sql = "insert into comments values(comments_seq.nextval,?,?,?,sysdate)";
 			
 			psmt = conn.prepareStatement(sql);
 			

@@ -43,6 +43,6 @@ public class freeboardSelectCon extends HttpServlet {
 		session.setAttribute("post_list_1",list1);
 		session.setAttribute("post_list_2",list2);
 		
-		response.sendRedirect("Freeboard.jsp");
+		response.sendRedirect("no-sider.jsp");
 	}
 }

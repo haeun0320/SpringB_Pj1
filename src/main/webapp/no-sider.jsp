@@ -1,8 +1,8 @@
-<%@page import="com.VO.commentVO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.DAO.commentDAO"%>
 <%@page import="com.DAO.freeboardDAO"%>
 <%@page import="com.VO.memberVO"%>
+<%@page import="com.VO.freeboardVO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
@@ -12,7 +12,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
 		<style>
 				table{
 					border: 1px #a39485 solid;
@@ -53,63 +53,33 @@
 		</style>
 	</head>
 	<body class="no-sidebar is-preload">
-	<%		
+	<%
+		request.setCharacterEncoding("utf-8");
+		// viewPage에 맞는 글이 담긴 리스트 
+		ArrayList<freeboardVO> list1 = (ArrayList)session.getAttribute("post_list_1");
+		ArrayList<freeboardVO> list2 = (ArrayList)session.getAttribute("post_list_2");
+		
 		memberVO vo = (memberVO)session.getAttribute("vo");
 		
-		// Freeboard.jsp에서 선택한 글의 정보 
-		String post_id;
-		String title;
-		String writer;
-		String content;
-		String post_date;
-		int views;
-		int board_type;
-		
-		if (request.getParameter("post_id") == null) {
-			post_id = (String)request.getAttribute("post_id");
+		// 글에 관련된 기능을 담당하는 dao 댓글 관련된 기능을 담당하는 comment_dao
+		freeboardDAO dao = new freeboardDAO();
+		commentDAO comment_dao = new commentDAO();
+		// 총 글의 개수
+		int total_1 = dao.postTotal_1(); // 총 글 개수
+		int total_2 = dao.postTotal_2();
+		int pageNumber_1 = 1;
+		int pageNumber_2 = 1;
+	
+		if (total_1 % 5 == 0) {
+			pageNumber_1 = total_1 / 5;
 		} else {
-			post_id = request.getParameter("post_id");
+			pageNumber_1 = (total_1 / 5) + 1;
 		}
-		
-		if (request.getParameter("title") == null) {
-			title = (String)request.getAttribute("title");
+		if (total_2 % 5 == 0) {
+			pageNumber_2 = total_2 / 5;
 		} else {
-			title = request.getParameter("title");
+			pageNumber_2 = (total_2 / 5) + 1;
 		}
-		
-		if (request.getParameter("writer") == null) {
-			writer = (String)request.getAttribute("writer");
-		} else {
-			writer = request.getParameter("writer");
-		}
-		
-		if (request.getParameter("content") == null) {
-			content = (String)request.getAttribute("content");
-		} else {
-			content = request.getParameter("content");
-		}
-		
-		if (request.getParameter("post_date") == null) {
-			post_date = (String)request.getAttribute("post_date");
-		} else {
-			post_date = request.getParameter("post_date");
-		}
-		
-		if (request.getParameter("views") == null) {
-			views = (int)request.getAttribute("views");
-		} else {
-			views = Integer.parseInt(request.getParameter("views"));
-		}
-		if (request.getParameter("board_type") == null) {
-			board_type = (int)request.getAttribute("board_type");
-		} else {
-			board_type = Integer.parseInt(request.getParameter("board_type"));
-		}
-		
-		freeboardDAO freeboard_dao = new freeboardDAO();
-		freeboard_dao.viewsUpdate(views+1,post_id);
-		commentDAO dao = new commentDAO();
-		ArrayList<commentVO> list = dao.commentSelect(post_id);
 	%>
 		<div id="page-wrapper">
 
@@ -159,75 +129,104 @@
 					<div class="container">
 						<article id="main" class="special">
 							<header>
-								<h3 align="left"><a href="#">공지사항</a></h3>
+								<h3 align="left"><a href="#">게시판</a></h3>
+									<button id="board_notice" onclick="showNotice()">공지사항</button>
+									<button id="board_free" onclick="showFreeboard()">자유게시판</button>
 							</header>
 						</article>
 						<hr id="board_line"/>
-						<section>
-						<!-- 게시글 내용 테이블 -->
-							<table>
+						<div id="notice_view">
+						<table border="1px solid black;" width="500px;">
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>작성일</th>
+								<th>조회수</th>
+							</tr>
+							<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
+							<% int n=1; %>
+							<% for (int i=0; i<list1.size(); i++) { %>
+							<% String post_id = list1.get(i).getPost_id(); %>
+							<% String title = list1.get(i).getTitle(); %>
+							<% String writer = list1.get(i).getWriter(); %>
+							<% String content = list1.get(i).getContent(); %>
+							<% String post_date = list1.get(i).getPost_date(); %>
+							<% int views = list1.get(i).getViews(); %>
 								<tr>
-									<th><%=title%><th>
+									<td><%= n++ %></td>
+									<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
+									<td><a href="board_read.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=1"><%= list1.get(i).getTitle() %></a> [<%=comment_dao.commentNum(post_id) %>]</td>
+									
+									<td><%= list1.get(i).getWriter() %></td>
+									<td><%= list1.get(i).getPost_date().substring(0,10) %></td>
+									<td><%= list1.get(i).getViews() %></td>			
 								</tr>
-                                <tr>
-                                    <td>작성자<%=writer %></td>
-									<td>작성일자<%=post_date %></td>
-									<td>조회수 <%=views+1 %></td>
-                                </tr>
-                                <tr>
-                                    <!-- <td>내용</td> -->
-                                    <td class="content" colspan="3"><%=content %></td>
-                                </tr>
-                            </table>
-                            <!-- 댓글 목록 테이블 -->
-                            <% for(int i=0; i<list.size(); i++) { %>
-								<table class="comment_area">
-									<tr>
-                                    	<th colspan="4">댓글</th>
-                                	</tr>
-									<tr>
-										<td><%=list.get(i).getComment_writer()%></td>
-										<td><%=list.get(i).getContent() %></td>
-										<td><%=list.get(i).getComment_date()%></td>
-											<!-- 로그인 한 아이디와 댓글 작성자가 같으면 댓글 수정,삭제 권한 부여 -->
-										<td>
-											<% if (vo.getId().equals(list.get(i).getComment_writer())) { %>
-												<div style="float:right">
-													<button onclick="location.href='commentUpdate.jsp?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>'">수정</button>
-													<button onclick="location.href='commentDeleteCon?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>'">삭제</button>
-												</div>
-											<% } %>
-										</td>
-									</tr>
-								</table>
+								
 							<% } %>
-                            <!-- 댓글 작성 테이블 -->
-                            <form action="commentWriteCon?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=<%=board_type%>" method="post">
-	                            <table clas="comment_flex">
-	                                <tr>
-	                                    <td class="comment_flex">
-	                                        <textarea style="width:100%" name="comment_content" rows="1" placeholder="댓글을 작성하세요"></textarea>
-	                                    </td>
-	                                    <td>
-		                                    <%if(vo==null){ %>
-		                                    	<button type="button" onclick="alert('로그인 하세요')">댓글 작성</button>
-		                                    <%}else{ %>
-		                                    	<input type="submit" value="댓글 등록" class="button" id="btn_comment" style="float:right;">
-		                                    <%} %>
-	                                    </td>
-	                                </tr>
-	                            </table>
-                            </form>
-                            <ul class="actions">
-                                <!-- <li><input type="submit" value="게시글 등록" class="button"></li> -->
-                                <li><a href="no-sider.jsp" class="button">목록으로</a></li>
-                            </ul>
-						</section>
+						</table>
+							<%
+							for (int i = 1; i <= pageNumber_1; i++) {
+								out.print("<a href='freeboardSelectCon?num_1=" + i + "'>" + i + "</a>");
+							}
+							%>
+						</div>
 						<div class="row">
 
 						</div>
 					</div>
-
+						<div id="free_view" style="visibility:hidden; position:relative; top:-50;">
+						<table border="1px solid black;" width="500px;">
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+						</tr>
+						<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
+						<% int n_1=1; %>
+						<% for (int i=0; i<list2.size(); i++) { %>
+						<% String post_id = list2.get(i).getPost_id(); %>
+						<% String title = list2.get(i).getTitle(); %>
+						<% String writer = list2.get(i).getWriter(); %>
+						<% String content = list2.get(i).getContent(); %>
+						<% String post_date = list2.get(i).getPost_date(); %>
+						<% int views = list2.get(i).getViews(); %>
+							<tr>
+								<td><%=n_1++%></td>
+								<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
+								<td><a href="board_read.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=2"><%= list2.get(i).getTitle() %></a> [<%=comment_dao.commentNum(post_id) %>]</td>
+								<td><%= list2.get(i).getWriter() %></td>
+								<td><%= list2.get(i).getPost_date().substring(0,10) %></td>
+								<td><%= list2.get(i).getViews() %></td>			
+							</tr>
+						<% } %>
+					</table>
+						<%
+						for (int i = 1; i <= pageNumber_2; i++) {
+							out.print("<a href='freeboardSelectCon?num_2=" + i + "'>" + i + "</a>");
+						}
+						%>
+					</div>
+					<% if (vo != null) { %>
+						<button onclick="location.href='board_write.jsp'">글쓰기</button>
+					<% } else { %>
+						<button onclick="alert('로그인하시오')">글쓰기</button>
+					<% } %>
+					<button onclick="location.href='Main.jsp'">메인으로</button>
+					
+					
+					<script>
+						function showNotice(){
+							document.getElementById("notice_view").style.visibility="visible";
+							document.getElementById("free_view").style.visibility="hidden";
+						}
+						function showFreeboard(){
+							document.getElementById("free_view").style.visibility="visible";
+							document.getElementById("notice_view").style.visibility="hidden";
+						}
+					</script>
 				</div>
 
 			<!-- Footer -->
