@@ -42,7 +42,7 @@ public class commentUpdateCon extends HttpServlet {
 			request.setAttribute("post_id", post_id);
 			request.setAttribute("views", views);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("View.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("board_read.jsp");
 			rd.forward(request, response);
 		} else {
 			System.out.println("삭제 실패");

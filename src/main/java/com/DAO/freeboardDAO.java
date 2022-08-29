@@ -1,4 +1,4 @@
-package com.DAO;
+ package com.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +16,7 @@ public class freeboardDAO {
 	
 	ArrayList<freeboardVO> list1 = new ArrayList<freeboardVO>();
 	ArrayList<freeboardVO> list2 = new ArrayList<freeboardVO>();
+	ArrayList<freeboardVO> list3 = new ArrayList<freeboardVO>();
 	memberVO vo = null;
 	freeboardVO freeboard_vo = null;
 	int cnt = 0;
@@ -78,7 +79,7 @@ public class freeboardDAO {
 	}
 	
 	// 게시글 총 개수를 반환해주는 메소드
-public int postTotal() {
+	public int postTotal() {
 		
 		int total=0;
 		
@@ -100,7 +101,7 @@ public int postTotal() {
 		}
 		return total;
 	}
-public int postTotal_1() {
+	public int postTotal_1() {
 		
 		int total=0;
 		
@@ -122,6 +123,7 @@ public int postTotal_1() {
 		}
 		return total;
 	}
+	
 	public int postTotal_2() {
 		
 		int total=0;
@@ -134,6 +136,29 @@ public int postTotal_1() {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 
+			while(rs.next()) {
+				total += 1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return total;
+	}
+	
+	public int postTotal_3() {
+		
+		int total=0;
+		
+		try {
+			connection();
+			
+			String sql = "select * from freeboard where board_type=3";
+			
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
 			while(rs.next()) {
 				total += 1;
 			}
@@ -217,7 +242,7 @@ public int postTotal_1() {
 		try {
 			connection();
 			
-			String sql = "SELECT * FROM (SELECT rownum as num ,freeboard. * FROM freeboard WHERE board_type=1 ) where num BETWEEN ? AND ?";
+			String sql = "SELECT * FROM (SELECT rownum as num ,freeboard. * FROM freeboard WHERE board_type=2 ) where num BETWEEN ? AND ?";
 			
 			psmt = conn.prepareStatement(sql);
 			
@@ -244,6 +269,40 @@ public int postTotal_1() {
 			close();
 		}
 		return list2;
+	}
+	public ArrayList<freeboardVO> postSelect_3(int viewPage) {
+		
+		int postRange = postTotal_3()-(viewPage-1)*5;
+		try {
+			connection();
+			
+			String sql = "SELECT * FROM (SELECT rownum as num ,freeboard. * FROM freeboard WHERE board_type=3 ) where num BETWEEN ? AND ?";
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1,postRange-4);
+			psmt.setInt(2,postRange);
+			
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				String post_id = rs.getString(2);
+				String title = rs.getString(3);
+				String writer = rs.getString(4);
+				String content = rs.getString(5);
+				String post_date = rs.getString(6);
+				int views = rs.getInt(7);
+				
+				
+				freeboard_vo = new freeboardVO(post_id,title,writer,content,post_date,views);
+				list3.add(freeboard_vo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  finally {
+			close();
+		}
+		return list3;
 	}
 	
 	

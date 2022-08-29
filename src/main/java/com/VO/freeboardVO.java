@@ -10,8 +10,6 @@ public class freeboardVO {
 	private String post_date;
 	private int views;
 	
-	
-	
 	public freeboardVO(String post_id, String title, String writer, String content, String post_date,int views) {
 		super();
 		this.post_id = post_id;
@@ -22,9 +20,6 @@ public class freeboardVO {
 		this.views = views;
 		
 	}
-	
-	
-
 
 	public int getViews() {
 		return views;

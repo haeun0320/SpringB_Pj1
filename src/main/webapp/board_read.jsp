@@ -11,7 +11,7 @@
 		<title>No Sidebar - Helios by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<style>
 				table{
@@ -206,13 +206,13 @@
 	                            <table clas="comment_flex">
 	                                <tr>
 	                                    <td class="comment_flex">
-	                                        <textarea style="width:100%" name="comment_content" rows="1" placeholder="댓글을 작성하세요"></textarea>
+	                                        <input type="text" style="width:100%" name="comment_content" rows="1" placeholder="댓글을 작성하세요"></input>
 	                                    </td>
 	                                    <td>
 		                                    <%if(vo==null){ %>
-		                                    	<button type="button" onclick="alert('로그인 하세요')">댓글 작성</button>
+		                                    	<button type="button" onclick="alert('로그인 하세요')" style="float:right;">댓글 작성</button>
 		                                    <%}else{ %>
-		                                    	<input type="submit" value="댓글 등록" class="button" id="btn_comment" style="float:right;">
+		                                    	<input type="submit" value="댓글 작성" class="button" id="btn_comment" style="float:right;">
 		                                    <%} %>
 	                                    </td>
 	                                </tr>
@@ -221,6 +221,7 @@
                             <ul class="actions">
                                 <!-- <li><input type="submit" value="게시글 등록" class="button"></li> -->
                                 <li><a href="no-sider.jsp" class="button">목록으로</a></li>
+                                <button onclick="location.href='Main.jsp'">메인으로</button>
                             </ul>
 						</section>
 						<div class="row">

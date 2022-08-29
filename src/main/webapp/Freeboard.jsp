@@ -18,6 +18,7 @@
 		// viewPage에 맞는 글이 담긴 리스트 
 		ArrayList<freeboardVO> list1 = (ArrayList)session.getAttribute("post_list_1");
 		ArrayList<freeboardVO> list2 = (ArrayList)session.getAttribute("post_list_2");
+		ArrayList<freeboardVO> list3 = (ArrayList)session.getAttribute("post_list_3");
 		
 		memberVO vo = (memberVO)session.getAttribute("vo");
 		
@@ -27,8 +28,10 @@
 		// 총 글의 개수
 		int total_1 = dao.postTotal_1(); // 총 글 개수
 		int total_2 = dao.postTotal_2();
+		int total_3 = dao.postTotal_3();
 		int pageNumber_1 = 1;
 		int pageNumber_2 = 1;
+		int pageNumber_3 = 1;
 	
 		if (total_1 % 5 == 0) {
 			pageNumber_1 = total_1 / 5;
@@ -40,10 +43,16 @@
 		} else {
 			pageNumber_2 = (total_2 / 5) + 1;
 		}
+		if (total_3 % 5 == 0) {
+			pageNumber_3 = total_3 / 5;
+		} else {
+			pageNumber_3 = (total_3 / 5) + 1;
+		}
 	%>
 	<h1>인공지능 사관학교 게시판</h1>
 	<button id="board_notice" onclick="showNotice()">공지사항</button>
 	<button id="board_free" onclick="showFreeboard()">자유게시판</button>
+	<button id="board_study" onclick="showStudy()">스터디모집</button>
 	
 	<div id="notice_view">
 	<table border="1px solid black;" width="500px;">
@@ -115,6 +124,40 @@
 		}
 		%>
 	</div>
+	<div id="study_view" style="visibility:hidden; position:relative; top:-50;">
+		<table border="1px solid black;" width="500px;">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회수</th>
+		</tr>
+		<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
+		<% int n_2=1; %>
+		<% for (int i=0; i<list3.size(); i++) { %>
+			<% String post_id = list3.get(i).getPost_id(); %>
+			<% String title = list3.get(i).getTitle(); %>
+			<% String writer = list3.get(i).getWriter(); %>
+			<% String content = list3.get(i).getContent(); %>
+			<% String post_date = list3.get(i).getPost_date(); %>
+			<% int views = list3.get(i).getViews(); %>
+			<tr>
+				<td><%=n_2++%></td>
+				<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
+				<td><a href="View.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=3"><%= list3.get(i).getTitle() %></a> [<%=comment_dao.commentNum(post_id) %>]</td>
+				<td><%= list3.get(i).getWriter() %></td>
+				<td><%= list3.get(i).getPost_date().substring(0,10) %></td>
+				<td><%= list3.get(i).getViews() %></td>			
+			</tr>
+		<% } %>
+	</table>
+		<%
+		for (int i = 1; i <= pageNumber_3; i++) {
+			out.print("<a href='freeboardSelectCon?num_3=" + i + "'>" + i + "</a>");
+		}
+		%>
+	</div>
 	<!-- 1부터 pageNumber까지의 목록,클릭하는순간 해당 숫자가 viewPage가 된다.-->
 	
 	<!-- 로그인 한 사람만 글쓰기 가능 -->
@@ -130,10 +173,17 @@
 		function showNotice(){
 			document.getElementById("notice_view").style.visibility="visible";
 			document.getElementById("free_view").style.visibility="hidden";
+			document.getElementById("study_view").style.visibility="hidden";
 		}
 		function showFreeboard(){
-			document.getElementById("free_view").style.visibility="visible";
 			document.getElementById("notice_view").style.visibility="hidden";
+			document.getElementById("free_view").style.visibility="visible";
+			document.getElementById("study_view").style.visibility="hidden";
+		}
+		function showStudy(){
+			document.getElementById("notice_view").style.visibility="hidden";
+			document.getElementById("free_view").style.visibility="hidden";
+			document.getElementById("study_view").style.visibility="visible";
 		}
 	</script>
 </body>

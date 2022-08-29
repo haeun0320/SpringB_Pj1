@@ -46,7 +46,7 @@ public class commentWriteCon extends HttpServlet {
 			request.setAttribute("views", views);
 			
 			// ★댓글을 작성하면 화면만 View.jsp로 이동할 뿐 url은 commentWriteCon이므로 새로고침하면 똑같은 댓글이 또 작성된다★.
-			RequestDispatcher rd = request.getRequestDispatcher("View.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("board_read.jsp");
 			rd.forward(request, response);
 		} else {
 			System.out.println("등록 실패");

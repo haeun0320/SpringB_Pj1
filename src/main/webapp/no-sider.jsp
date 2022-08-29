@@ -11,46 +11,9 @@
 		<title>No Sidebar - Helios by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
-		<style>
-				table{
-					border: 1px #a39485 solid;
-					font-size: .9em;
-					box-shadow: 0 2px 5px rgba(0,0,0,.25);
-					width: 100%;
-					border-collapse: collapse;
-					border-radius: 5px;
-					overflow: hidden;
-				}
-				th{
-					text-align: left;
-					font-weight: bold;
-					border-bottom: 1px solid #a39485;
-				}
-				td{
-					border-bottom: 1px solid rgba(0, 0, 0, .1);
-					background: #fff;
-					padding: 0.5em 1em 0.5em 1em;
-				}
-				.container hr{
-					margin-top: 10px;
-				}
-				.comment_btn{
-					width: 109px;
-					border-radius: 0.5em;
-					background: #735780;
-				
-				}
-				.commnet_btn:hover {
-					color: #fff;
-					background: #a97fba;
-				}
-				
-				#board_line{
-					margin-top: -50px;
-				}
-		</style>
+
 	</head>
 	<body class="no-sidebar is-preload">
 	<%
@@ -58,7 +21,8 @@
 		// viewPage에 맞는 글이 담긴 리스트 
 		ArrayList<freeboardVO> list1 = (ArrayList)session.getAttribute("post_list_1");
 		ArrayList<freeboardVO> list2 = (ArrayList)session.getAttribute("post_list_2");
-		
+		ArrayList<freeboardVO> list3 = (ArrayList)session.getAttribute("post_list_3");
+	
 		memberVO vo = (memberVO)session.getAttribute("vo");
 		
 		// 글에 관련된 기능을 담당하는 dao 댓글 관련된 기능을 담당하는 comment_dao
@@ -67,8 +31,10 @@
 		// 총 글의 개수
 		int total_1 = dao.postTotal_1(); // 총 글 개수
 		int total_2 = dao.postTotal_2();
+		int total_3 = dao.postTotal_3();
 		int pageNumber_1 = 1;
 		int pageNumber_2 = 1;
+		int pageNumber_3 = 1;
 	
 		if (total_1 % 5 == 0) {
 			pageNumber_1 = total_1 / 5;
@@ -79,6 +45,11 @@
 			pageNumber_2 = total_2 / 5;
 		} else {
 			pageNumber_2 = (total_2 / 5) + 1;
+		}
+		if (total_3 % 5 == 0) {
+			pageNumber_3 = total_3 / 5;
+		} else {
+			pageNumber_3 = (total_3 / 5) + 1;
 		}
 	%>
 		<div id="page-wrapper">
@@ -132,11 +103,15 @@
 								<h3 align="left"><a href="#">게시판</a></h3>
 									<button id="board_notice" onclick="showNotice()">공지사항</button>
 									<button id="board_free" onclick="showFreeboard()">자유게시판</button>
+									<button id="board_study" onclick="showStudy()">스터디모집</button>
 							</header>
 						</article>
 						<hr id="board_line"/>
-						<div id="notice_view">
-						<table border="1px solid black;" width="500px;">
+						
+						<!-- 공지사항 -->
+						
+						<div id="notice_view"  style="display : block">
+						<table width="500px;">
 							<tr>
 								<th>번호</th>
 								<th>제목</th>
@@ -147,12 +122,12 @@
 							<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
 							<% int n=1; %>
 							<% for (int i=0; i<list1.size(); i++) { %>
-							<% String post_id = list1.get(i).getPost_id(); %>
-							<% String title = list1.get(i).getTitle(); %>
-							<% String writer = list1.get(i).getWriter(); %>
-							<% String content = list1.get(i).getContent(); %>
-							<% String post_date = list1.get(i).getPost_date(); %>
-							<% int views = list1.get(i).getViews(); %>
+								<% String post_id = list1.get(i).getPost_id(); %>
+								<% String title = list1.get(i).getTitle(); %>
+								<% String writer = list1.get(i).getWriter(); %>
+								<% String content = list1.get(i).getContent(); %>
+								<% String post_date = list1.get(i).getPost_date(); %>
+								<% int views = list1.get(i).getViews(); %>
 								<tr>
 									<td><%= n++ %></td>
 									<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
@@ -162,7 +137,6 @@
 									<td><%= list1.get(i).getPost_date().substring(0,10) %></td>
 									<td><%= list1.get(i).getViews() %></td>			
 								</tr>
-								
 							<% } %>
 						</table>
 							<%
@@ -174,9 +148,11 @@
 						<div class="row">
 
 						</div>
-					</div>
-						<div id="free_view" style="visibility:hidden; position:relative; top:-50;">
-						<table border="1px solid black;" width="500px;">
+					
+					<!-- 자유게시판 -->
+					
+					<div id="free_view" style="display : none" >
+						<table width="500px;">
 						<tr>
 							<th>번호</th>
 							<th>제목</th>
@@ -185,14 +161,15 @@
 							<th>조회수</th>
 						</tr>
 						<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
+						<%= list2.size() %>
 						<% int n_1=1; %>
 						<% for (int i=0; i<list2.size(); i++) { %>
-						<% String post_id = list2.get(i).getPost_id(); %>
-						<% String title = list2.get(i).getTitle(); %>
-						<% String writer = list2.get(i).getWriter(); %>
-						<% String content = list2.get(i).getContent(); %>
-						<% String post_date = list2.get(i).getPost_date(); %>
-						<% int views = list2.get(i).getViews(); %>
+							<% String post_id = list2.get(i).getPost_id(); %>
+							<% String title = list2.get(i).getTitle(); %>
+							<% String writer = list2.get(i).getWriter(); %>
+							<% String content = list2.get(i).getContent(); %>
+							<% String post_date = list2.get(i).getPost_date(); %>
+							<% int views = list2.get(i).getViews(); %>
 							<tr>
 								<td><%=n_1++%></td>
 								<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
@@ -202,13 +179,51 @@
 								<td><%= list2.get(i).getViews() %></td>			
 							</tr>
 						<% } %>
-					</table>
+						 </table>
 						<%
 						for (int i = 1; i <= pageNumber_2; i++) {
 							out.print("<a href='freeboardSelectCon?num_2=" + i + "'>" + i + "</a>");
 						}
 						%>
 					</div>
+					
+					<!-- 스터디 모집 게시판 -->
+					<div id="study_view"  style="display : none" >
+						<table width="500px;">
+						<tr>
+							<th>번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>조회수</th>
+						</tr>
+						<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
+						<%=list3.size() %>
+						<%=pageNumber_3 %>
+						<% int n_2=1; %>
+						<% for (int i=0; i<list3.size(); i++) { %>
+							<% String post_id = list3.get(i).getPost_id(); %>
+							<% String title = list3.get(i).getTitle(); %>
+							<% String writer = list3.get(i).getWriter(); %>
+							<% String content = list3.get(i).getContent(); %>
+							<% String post_date = list3.get(i).getPost_date(); %>
+							<% int views = list3.get(i).getViews(); %>
+							<tr>
+								<td><%=n_2++%></td>
+								<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
+								<td><a href="board_read.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=3"><%= list3.get(i).getTitle() %></a> [<%=comment_dao.commentNum(post_id) %>]</td>
+								<td><%= list3.get(i).getWriter() %></td>
+								<td><%= list3.get(i).getPost_date().substring(0,10) %></td>
+								<td><%= list3.get(i).getViews() %></td>			
+							</tr>
+						<% } %>
+						</table>
+						<%
+						for (int i = 1; i <= pageNumber_3; i++) {
+							out.print("<a href='freeboardSelectCon?num_3=" + i + "'>" + i + "</a>");
+						}
+						%>
+					</div><br><br>
 					<% if (vo != null) { %>
 						<button onclick="location.href='board_write.jsp'">글쓰기</button>
 					<% } else { %>
@@ -219,14 +234,22 @@
 					
 					<script>
 						function showNotice(){
-							document.getElementById("notice_view").style.visibility="visible";
-							document.getElementById("free_view").style.visibility="hidden";
+							document.getElementById("notice_view").style.display="block";
+							document.getElementById("free_view").style.display="none";
+							document.getElementById("study_view").style.display="none";
 						}
 						function showFreeboard(){
-							document.getElementById("free_view").style.visibility="visible";
-							document.getElementById("notice_view").style.visibility="hidden";
+							document.getElementById("notice_view").style.display="none";
+							document.getElementById("free_view").style.display="block";
+							document.getElementById("study_view").style.display="none";
+						}
+						function showStudy(){
+							document.getElementById("notice_view").style.display="none";
+							document.getElementById("free_view").style.display="none";
+							document.getElementById("study_view").style.display="block";
 						}
 					</script>
+					</div>
 				</div>
 
 			<!-- Footer -->

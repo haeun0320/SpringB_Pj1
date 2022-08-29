@@ -26,7 +26,7 @@
 					<select name="board_type">
 						<option value="1">공지사항</option>
 						<option value="2">자유게시판</option>
-						<option></option>
+						<option value="3">스터디모집</option>
 					</select>
 				</td>
 			</tr>

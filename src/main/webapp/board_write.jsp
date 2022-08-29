@@ -6,7 +6,7 @@
 		<title>No Sidebar - Helios by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 			<style>
 				table{
@@ -110,6 +110,7 @@
                                                 <option value="" disable selected>게시판 선택</option>
                                                 <option value="1">공지사항</option>
                                                 <option value="2">자유게시판</option>
+                                                <option value="3">스터디모집</option>
                                                 
                                             </select>
                                         </td>
