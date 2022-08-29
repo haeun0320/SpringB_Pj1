@@ -22,7 +22,7 @@ public class commentDeleteCon extends HttpServlet {
 		String writer = request.getParameter("writer");
 		String content = request.getParameter("content");
 		String post_date = request.getParameter("post_date");	
-//		int views = Integer.parseInt(request.getParameter("views"));
+		int views = Integer.parseInt(request.getParameter("views"));
 		
 		commentDAO dao = new commentDAO();
 		
@@ -34,7 +34,7 @@ public class commentDeleteCon extends HttpServlet {
 			request.setAttribute("content", content);
 			request.setAttribute("post_date", post_date);
 			request.setAttribute("post_id", post_id);
-//			request.setAttribute("views", views);
+			request.setAttribute("views", views);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("board_read.jsp");
 			rd.forward(request, response);

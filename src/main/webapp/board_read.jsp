@@ -13,44 +13,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<style>
-				table{
-					border: 1px #a39485 solid;
-					font-size: .9em;
-					box-shadow: 0 2px 5px rgba(0,0,0,.25);
-					width: 100%;
-					border-collapse: collapse;
-					border-radius: 5px;
-					overflow: hidden;
-				}
-				th{
-					text-align: left;
-					font-weight: bold;
-					border-bottom: 1px solid #a39485;
-				}
-				td{
-					border-bottom: 1px solid rgba(0, 0, 0, .1);
-					background: #fff;
-					padding: 0.5em 1em 0.5em 1em;
-				}
-				.container hr{
-					margin-top: 10px;
-				}
-				.comment_btn{
-					width: 109px;
-					border-radius: 0.5em;
-					background: #735780;
-				
-				}
-				.commnet_btn:hover {
-					color: #fff;
-					background: #a97fba;
-				}
-				
-				#board_line{
-					margin-top: -50px;
-				}
-		</style>
+
 	</head>
 	<body class="no-sidebar is-preload">
 	<%		
@@ -147,7 +110,7 @@
 								</li>
 								<li><a href="left-sidebar.html">Left Sidebar</a></li>
 								<li><a href="right-sidebar.html">Right Sidebar</a></li>
-								<li><a href="no-sidebar.html">No Sidebar</a></li>
+								<li><a href="no-sidebar.jsp">No Sidebar</a></li>
 							</ul>
 						</nav>
 
@@ -167,7 +130,7 @@
 						<!-- 게시글 내용 테이블 -->
 							<table>
 								<tr>
-									<th><%=title%><th>
+									<th colspan="3"><%=title%><th>
 								</tr>
                                 <tr>
                                     <td>작성자<%=writer %></td>
@@ -180,11 +143,11 @@
                                 </tr>
                             </table>
                             <!-- 댓글 목록 테이블 -->
-                            <% for(int i=0; i<list.size(); i++) { %>
-								<table class="comment_area">
-									<tr>
-                                    	<th colspan="4">댓글</th>
-                                	</tr>
+							<table class="comment_area">
+								<tr>
+                                   	<th colspan="4">댓글</th>
+                               	</tr>
+	                            <% for(int i=0; i<list.size(); i++) { %>
 									<tr>
 										<td><%=list.get(i).getComment_writer()%></td>
 										<td><%=list.get(i).getContent() %></td>
@@ -199,8 +162,8 @@
 											<% } %>
 										</td>
 									</tr>
-								</table>
-							<% } %>
+								<% } %>
+							</table>
                             <!-- 댓글 작성 테이블 -->
                             <form action="commentWriteCon?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=<%=board_type%>" method="post">
 	                            <table clas="comment_flex">
@@ -221,7 +184,7 @@
                             <ul class="actions">
                                 <!-- <li><input type="submit" value="게시글 등록" class="button"></li> -->
                                 <li><a href="no-sider.jsp" class="button">목록으로</a></li>
-                                <button onclick="location.href='Main.jsp'">메인으로</button>
+                                <li><a href="Main.jsp" class="button">목록으로</a></li>
                             </ul>
 						</section>
 						<div class="row">

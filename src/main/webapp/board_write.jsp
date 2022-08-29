@@ -105,7 +105,7 @@
 								<table>
                                     <tr>
                                         <!-- <td>게시판 선택</td> -->
-                                        <td colspan="2">
+                                        <td colspan="3">
                                             <select id="board_type">
                                                 <option value="" disable selected>게시판 선택</option>
                                                 <option value="1">공지사항</option>
