@@ -1,7 +1,9 @@
 package com.VO;
 
+import java.io.Serializable;
+
 // 게시판 글의 정보를 담은 클래스
-public class freeboardVO {
+public class freeboardVO implements Serializable{
 	
 	private String post_id;
 	private String title;

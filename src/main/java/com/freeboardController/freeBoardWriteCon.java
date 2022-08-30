@@ -17,9 +17,9 @@ public class freeBoardWriteCon extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		int board_type = Integer.parseInt(request.getParameter("board_type"));
+		String title = request.getParameter("title").trim();
+		String content = request.getParameter("content").trim(); 
+		int board_type = Integer.parseInt(request.getParameter("board_type").trim());
 		
 		HttpSession session = request.getSession();
 		memberVO vo = (memberVO)session.getAttribute("vo");

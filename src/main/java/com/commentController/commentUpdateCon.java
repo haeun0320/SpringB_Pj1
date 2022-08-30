@@ -27,12 +27,11 @@ public class commentUpdateCon extends HttpServlet {
 		String post_date = request.getParameter("post_date");	
 		int views = Integer.parseInt(request.getParameter("views"));
 		
+		int board_type = Integer.parseInt(request.getParameter("board_type"));
+		
 		commentDAO dao = new commentDAO();
 		
 		int cnt = dao.commentUpdate(comment_id,update_content);
-		
-		System.out.println(comment_id);
-		System.out.println(update_content);
 		
 		if (cnt > 0) {
 			request.setAttribute("title", title);
@@ -41,6 +40,7 @@ public class commentUpdateCon extends HttpServlet {
 			request.setAttribute("post_date", post_date);
 			request.setAttribute("post_id", post_id);
 			request.setAttribute("views", views);
+			request.setAttribute("board_type", board_type);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("board_read.jsp");
 			rd.forward(request, response);

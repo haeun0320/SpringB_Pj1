@@ -146,7 +146,17 @@
 										</td>
 									</tr>
 									<tr>
-										<form action="commentUpdateCon?comment_id=<%=comment_id %>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>" method="post">
+										<form action="commentUpdateCon" method="post">
+											
+											<input type="hidden" name="comment_id" value="<%=comment_id %>"> 
+											<input type="hidden" name="post_id" value="<%=post_id%>"> 
+											<input type="hidden" name="title" value="<%=title%>"> 
+											<input type="hidden" name="writer" value="<%=writer%>"> 
+											<input type="hidden" name="content" value="<%=content%>"> 
+											<input type="hidden" name="post_date" value="<%=post_date%>"> 
+											<input type="hidden" name="views" value="<%=views %>"> 
+											<input type="hidden" name="board_type" value="<%= request.getParameter("board_type") %>"> 
+											
 											<!-- View.jsp에서 보낸 댓글의 아이디와 리스트에 담긴 댓글의 아이디가 같은 단 하나의 댓글만 수정가능 -->
 											<% if (list.get(i).getComment_id().equals(comment_id)) { %>					
 												<td>

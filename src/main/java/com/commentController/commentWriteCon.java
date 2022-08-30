@@ -31,6 +31,8 @@ public class commentWriteCon extends HttpServlet {
 		String content = request.getParameter("content");
 		String post_date = request.getParameter("post_date");	
 		int views = Integer.parseInt(request.getParameter("views"));
+		int board_type = Integer.parseInt(request.getParameter("board_type"));
+		
 		
 		commentDAO dao = new commentDAO();
 		
@@ -44,6 +46,7 @@ public class commentWriteCon extends HttpServlet {
 			request.setAttribute("post_date", post_date);
 			request.setAttribute("post_id", post_id);
 			request.setAttribute("views", views);
+			request.setAttribute("board_type", board_type);
 			
 			// ★댓글을 작성하면 화면만 View.jsp로 이동할 뿐 url은 commentWriteCon이므로 새로고침하면 똑같은 댓글이 또 작성된다★.
 			RequestDispatcher rd = request.getRequestDispatcher("board_read.jsp");

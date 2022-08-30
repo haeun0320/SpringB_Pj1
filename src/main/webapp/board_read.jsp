@@ -1,3 +1,4 @@
+<%@page import="javax.swing.plaf.synth.SynthOptionPaneUI"%>
 <%@page import="com.VO.commentVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.DAO.commentDAO"%>
@@ -26,7 +27,7 @@
 		String content;
 		String post_date;
 		int views;
-		int board_type;
+		int board_type = 0;
 		
 		if (request.getParameter("post_id") == null) {
 			post_id = (String)request.getAttribute("post_id");
@@ -156,8 +157,8 @@
 										<td>
 											<% if (vo.getId().equals(list.get(i).getComment_writer())) { %>
 												<div style="float:right">
-													<button onclick="location.href='commentUpdate.jsp?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>'">수정</button>
-													<button onclick="location.href='commentDeleteCon?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>'">삭제</button>
+													<button onclick="location.href='commentUpdate.jsp?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=<%=board_type%>'">수정</button>
+													<button onclick="location.href='commentDeleteCon?comment_id=<%=list.get(i).getComment_id()%>&post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views %>&board_type=<%=board_type%>'">삭제</button>
 												</div>
 											<% } %>
 										</td>
@@ -166,7 +167,7 @@
 							</table>
                             <!-- 댓글 작성 테이블 -->
                             <form action="commentWriteCon?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=<%=board_type%>" method="post">
-	                            <table clas="comment_flex">
+	                            <table class="comment_flex">
 	                                <tr>
 	                                    <td class="comment_flex">
 	                                        <input type="text" style="width:100%" name="comment_content" rows="1" placeholder="댓글을 작성하세요"></input>
@@ -184,7 +185,7 @@
                             <ul class="actions">
                                 <!-- <li><input type="submit" value="게시글 등록" class="button"></li> -->
                                 <li><a href="no-sider.jsp" class="button">목록으로</a></li>
-                                <li><a href="Main.jsp" class="button">목록으로</a></li>
+                               <!--  <li><a href="Main.jsp" class="button">목록으로</a></li> -->
                             </ul>
 						</section>
 						<div class="row">

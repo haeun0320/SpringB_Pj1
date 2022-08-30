@@ -67,7 +67,7 @@ public class freeboardDAO {
 			psmt.setString(1,title);
 			psmt.setString(2,id);
 			psmt.setString(3,content);
-			psmt.setInt(4, board_type);
+			psmt.setInt(4,board_type);
 			cnt = psmt.executeUpdate();
 			
 		} catch (Exception e) {

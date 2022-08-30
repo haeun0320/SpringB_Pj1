@@ -13,7 +13,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
-
+s
 	</head>
 	<body class="no-sidebar is-preload">
 	<%
@@ -109,7 +109,7 @@
 						<hr id="board_line"/>
 						
 						<!-- 공지사항 -->
-						
+						<!-- display:block->태그겹치기 -->
 						<div id="notice_view"  style="display : block">
 						<table width="500px;">
 							<tr>
@@ -128,11 +128,11 @@
 								<% String content = list1.get(i).getContent(); %>
 								<% String post_date = list1.get(i).getPost_date(); %>
 								<% int views = list1.get(i).getViews(); %>
+								<% int board_type = 1; %>
 								<tr>
 									<td><%= n++ %></td>
 									<!-- 제목을 클릭하면 해당 글의 정보가 전달된다. 제목 옆에는 해당 글의 댓글 개수 -->
-									<td><a href="board_read.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=1"><%= list1.get(i).getTitle() %></a> [<%=comment_dao.commentNum(post_id) %>]</td>
-									
+									<td><a href="board_read.jsp?post_id=<%=post_id%>&title=<%=title%>&writer=<%=writer%>&content=<%=content%>&post_date=<%=post_date%>&views=<%=views%>&board_type=<%=board_type%>"><%= list1.get(i).getTitle() %></a> [<%=comment_dao.commentNum(post_id) %>]</td>
 									<td><%= list1.get(i).getWriter() %></td>
 									<td><%= list1.get(i).getPost_date().substring(0,10) %></td>
 									<td><%= list1.get(i).getViews() %></td>			
@@ -161,7 +161,6 @@
 							<th>조회수</th>
 						</tr>
 						<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
-						<%= list2.size() %>
 						<% int n_1=1; %>
 						<% for (int i=0; i<list2.size(); i++) { %>
 							<% String post_id = list2.get(i).getPost_id(); %>
@@ -198,8 +197,6 @@
 							<th>조회수</th>
 						</tr>
 						<!-- 현재 페이지에 맞는 글의 정보들을 출력 -->
-						<%=list3.size() %>
-						<%=pageNumber_3 %>
 						<% int n_2=1; %>
 						<% for (int i=0; i<list3.size(); i++) { %>
 							<% String post_id = list3.get(i).getPost_id(); %>

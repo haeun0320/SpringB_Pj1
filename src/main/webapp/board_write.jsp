@@ -8,44 +8,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" type="text/css" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-			<style>
-				table{
-					border: 1px #a39485 solid;
-					font-size: .9em;
-					box-shadow: 0 2px 5px rgba(0,0,0,.25);
-					width: 100%;
-					border-collapse: collapse;
-					border-radius: 5px;
-					overflow: hidden;
-				}
-				th{
-					text-align: left;
-					font-weight: bold;
-					border-bottom: 1px solid #a39485;
-				}
-				td{
-					border-bottom: 1px solid rgba(0, 0, 0, .1);
-					background: #fff;
-					padding: 0.5em 1em 0.5em 1em;
-				}
-				.container hr{
-					margin-top: 10px;
-				}
-				.comment_btn{
-					width: 109px;
-					border-radius: 0.5em;
-					background: #735780;
-				
-				}
-				.commnet_btn:hover {
-					color: #fff;
-					background: #a97fba;
-				}
-				
-				#board_line{
-					margin-top: -50px;
-				}
-		</style>
 	</head>
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
@@ -101,12 +63,12 @@
 						</article>
 						<hr id="board_line"/>
 						<section>
-							<form method="post" action="freeBoardWriteCon">
+							<form action="freeBoardWriteCon" method="post" >
 								<table>
                                     <tr>
                                         <!-- <td>게시판 선택</td> -->
                                         <td colspan="3">
-                                            <select id="board_type">
+                                            <select name="board_type">
                                                 <option value="" disable selected>게시판 선택</option>
                                                 <option value="1">공지사항</option>
                                                 <option value="2">자유게시판</option>
@@ -128,6 +90,7 @@
                                 </table>
                                 <ul class="actions">
                                     <li><input type="submit" value="작성" class="button"></li>
+                                    
                                     <li><a href="no-sidebar.html" class="button">목록으로</a></li>
                                 </ul>
 							</form>
